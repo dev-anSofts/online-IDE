@@ -181,19 +181,22 @@ app.innerHTML = `
   </div>
 `;
 
-const modeSelect = document.querySelector<HTMLSelectElement>('#modeSelect');
-const resetButton = document.querySelector<HTMLButtonElement>('#resetButton');
-const renderButton = document.querySelector<HTMLButtonElement>('#renderButton');
-const fileTabs = document.querySelector<HTMLDivElement>('#fileTabs');
-const editorRoot = document.querySelector<HTMLDivElement>('#editorRoot');
-const previewRoot = document.querySelector<HTMLDivElement>('#previewRoot');
-const statusLeft = document.querySelector<HTMLDivElement>('#statusLeft');
-const editorInfo = document.querySelector<HTMLSpanElement>('#editorInfo');
-const previewInfo = document.querySelector<HTMLSpanElement>('#previewInfo');
-
-if (!modeSelect || !resetButton || !renderButton || !fileTabs || !editorRoot || !previewRoot || !statusLeft || !editorInfo || !previewInfo) {
-  throw new Error('UI incompleta.');
+function must<T extends HTMLElement>(el: T | null, name: string): T {
+  if (!el) {
+    throw new Error(`Elemento DOM mancante: ${name}`);
+  }
+  return el;
 }
+
+const modeSelect = must(document.querySelector<HTMLSelectElement>('#modeSelect'), 'modeSelect');
+const resetButton = must(document.querySelector<HTMLButtonElement>('#resetButton'), 'resetButton');
+const renderButton = must(document.querySelector<HTMLButtonElement>('#renderButton'), 'renderButton');
+const fileTabs = must(document.querySelector<HTMLDivElement>('#fileTabs'), 'fileTabs');
+const editorRoot = must(document.querySelector<HTMLDivElement>('#editorRoot'), 'editorRoot');
+const previewRoot = must(document.querySelector<HTMLDivElement>('#previewRoot'), 'previewRoot');
+const statusLeft = must(document.querySelector<HTMLDivElement>('#statusLeft'), 'statusLeft');
+const editorInfo = must(document.querySelector<HTMLSpanElement>('#editorInfo'), 'editorInfo');
+const previewInfo = must(document.querySelector<HTMLSpanElement>('#previewInfo'), 'previewInfo');
 
 let currentMode: Mode = 'web';
 let files: FileModel[] = cloneFiles(defaultFiles.web);
@@ -289,9 +292,9 @@ function renderPreview(): void {
 
 function escapeHtml(value: string): string {
   return value
-    .replaceAll('&', '&amp;')
-    .replaceAll('<', '&lt;')
-    .replaceAll('>', '&gt;');
+    .replace(/&/g, '&amp;')
+    .replace(/</g, '&lt;')
+    .replace(/>/g, '&gt;');
 }
 
 function renderSwiftPlaceholder(): void {
