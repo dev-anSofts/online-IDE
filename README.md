@@ -32,7 +32,7 @@ npm run build
 
 La cartella da pubblicare sarà `dist/`.
 
-## Roadmap consigliata
+## Roadmap
 
 1. IndexedDB per salvataggio locale
 2. Import / export file
