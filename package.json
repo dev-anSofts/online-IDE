@@ -9,7 +9,8 @@
     "preview": "vite preview"
   },
   "dependencies": {
-    "monaco-editor": "^0.52.2"
+    "monaco-editor": "^0.52.2",
+    "pyodide": "^0.29.3"
   },
   "devDependencies": {
     "typescript": "^5.9.2",
